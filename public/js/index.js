@@ -1,47 +1,50 @@
 // Get references to page elements
-var $exampleText = $("#example-text");
-var $exampleDescription = $("#example-description");
+// var $menuItemTitle = $("#menuItem-text");
+var $menuItemCategory = $("#menuItem-category");
+var $menuItemTitle = $("#menuItem-title");
+var $menuItemDescription = $("#menuItem-description");
 var $submitBtn = $("#submit");
-var $exampleList = $("#example-list");
+var $menuItemList = $("#menuItem-list");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveExample: function(example) {
+  saveMenuItem: function(menuItem) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
       },
       type: "POST",
-      url: "api/examples",
-      data: JSON.stringify(example)
+      url: "api/menuItems",
+      data: JSON.stringify(menuItem)
     });
   },
-  getExamples: function() {
+  getMenuItems: function() {
     return $.ajax({
-      url: "api/examples",
+      url: "api/menuItems",
       type: "GET"
     });
   },
-  deleteExample: function(id) {
+  deleteMenuItem: function(id) {
     return $.ajax({
-      url: "api/examples/" + id,
+      url: "api/menuItems/" + id,
       type: "DELETE"
     });
   }
 };
 
-// refreshExamples gets new examples from the db and repopulates the list
-var refreshExamples = function() {
-  API.getExamples().then(function(data) {
-    var $examples = data.map(function(example) {
+// refreshMenuItems gets new menuItems from the db and repopulates the list
+var refreshMenuItems = function() {
+  API.getMenuItems().then(function(data) {
+    var $menuItems = data.map(function(menuItem) {
+      console.log(data);
       var $a = $("<a>")
-        .text(example.text)
-        .attr("href", "/example/" + example.id);
+        .text(menuItem.title)
+        .attr("href", "/menuItem/" + menuItem.id);
 
       var $li = $("<li>")
         .attr({
           class: "list-group-item",
-          "data-id": example.id
+          "data-id": menuItem.id
         })
         .append($a);
 
@@ -54,46 +57,48 @@ var refreshExamples = function() {
       return $li;
     });
 
-    $exampleList.empty();
-    $exampleList.append($examples);
+    $menuItemList.empty();
+    $menuItemList.append($menuItems);
   });
 };
 
-// handleFormSubmit is called whenever we submit a new example
-// Save the new example to the db and refresh the list
+// handleFormSubmit is called whenever we submit a new menuItem
+// Save the new menuItem to the db and refresh the list
 var handleFormSubmit = function(event) {
   event.preventDefault();
 
-  var example = {
-    text: $exampleText.val().trim(),
-    description: $exampleDescription.val().trim()
+  var menuItem = {
+    category: $menuItemCategory.val().trim(),
+    title: $menuItemTitle.val().trim(),
+    description: $menuItemDescription.val().trim()
   };
 
-  if (!(example.text && example.description)) {
-    alert("You must enter an example text and description!");
+  if (!(menuItem.title && menuItem.description && menuItem.category )) {
+    alert("You must enter an menuItem title and description!");
     return;
   }
 
-  API.saveExample(example).then(function() {
-    refreshExamples();
+  API.saveMenuItem(menuItem).then(function() {
+    refreshMenuItems();
   });
 
-  $exampleText.val("");
-  $exampleDescription.val("");
+  $menuItemCategory.val("");
+  $menuItemTitle.val("");
+  $menuItemDescription.val("");
 };
 
-// handleDeleteBtnClick is called when an example's delete button is clicked
-// Remove the example from the db and refresh the list
+// handleDeleteBtnClick is called when an menuItem's delete button is clicked
+// Remove the menuItem from the db and refresh the list
 var handleDeleteBtnClick = function() {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteExample(idToDelete).then(function() {
-    refreshExamples();
+  API.deleteMenuItem(idToDelete).then(function() {
+    refreshMenuItems();
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
-$exampleList.on("click", ".delete", handleDeleteBtnClick);
+$menuItemList.on("click", ".delete", handleDeleteBtnClick);

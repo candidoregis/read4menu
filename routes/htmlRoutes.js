@@ -3,21 +3,21 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
+    db.MenuItem.findAll({}).then(function(dbMenuItems) {
       res.render("index", {
         msg: "Welcome!",
-        examples: dbExamples
+        menuItems: dbMenuItems
       });
     });
   });
 
-  // Load example page and pass in an example by id
-  app.get("/example/:id", function(req, res) {
-    db.Example.findOne({ where: { id: req.params.id } }).then(function(
-      dbExample
+  // Load menuItem page and pass in an menuItem by id
+  app.get("/menuItem/:id", function(req, res) {
+    db.MenuItem.findOne({ where: { id: req.params.id } }).then(function(
+      dbMenuItem
     ) {
-      res.render("example", {
-        example: dbExample
+      res.render("menuItem", {
+        menuItem: dbMenuItem
       });
     });
   });

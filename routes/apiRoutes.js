@@ -1,26 +1,26 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  // Get all examples
-  app.get("/api/examples", function(req, res) {
-    db.Example.findAll({}).then(function(dbExamples) {
-      res.json(dbExamples);
+  // Get all menuItems
+  app.get("/api/menuItems", function(req, res) {
+    db.MenuItem.findAll({}).then(function(dbMenuItems) {
+      res.json(dbMenuItems);
     });
   });
 
-  // Create a new example
-  app.post("/api/examples", function(req, res) {
-    db.Example.create(req.body).then(function(dbExample) {
-      res.json(dbExample);
+  // Create a new menuItem
+  app.post("/api/menuItems", function(req, res) {
+    db.MenuItem.create(req.body).then(function(dbMenuItem) {
+      res.json(dbMenuItem);
     });
   });
 
-  // Delete an example by id
-  app.delete("/api/examples/:id", function(req, res) {
-    db.Example.destroy({ where: { id: req.params.id } }).then(function(
-      dbExample
+  // Delete an menuItem by id
+  app.delete("/api/menuItems/:id", function(req, res) {
+    db.MenuItem.destroy({ where: { id: req.params.id } }).then(function(
+      dbMenuItem
     ) {
-      res.json(dbExample);
+      res.json(dbMenuItem);
     });
   });
 };
