@@ -8,14 +8,16 @@
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "testdb",
+    "password": "b469modid",
+    "database": "read4menudb",
     "host": "localhost",
-    "dialect": "mysql",
-    "logging": false
+    "dialect": "mysql"
   },
   "production": {
-    "use_env_variable": "JAWSDB_URL",
+    "username": "root",
+    "password": "b469modid",
+    "database": "read4menudb",
+    "host": "localhost",
     "dialect": "mysql"
   }
 }
