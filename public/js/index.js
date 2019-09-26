@@ -3,6 +3,7 @@
 var $menuItemCategory = $("#menuItem-category");
 var $menuItemTitle = $("#menuItem-title");
 var $menuItemDescription = $("#menuItem-description");
+var $menuItemPrice = $("#menuItem-price");
 var $submitBtn = $("#submit");
 var $menuItemList = $("#menuItem-list");
 
@@ -36,7 +37,8 @@ var API = {
 var refreshMenuItems = function() {
   API.getMenuItems().then(function(data) {
     var $menuItems = data.map(function(menuItem) {
-      console.log(data);
+      console.log("----------------------------------------------------------index refresh");
+      console.log(menuItem);
       var $a = $("<a>")
         .text(menuItem.title)
         .attr("href", "/menuItem/" + menuItem.id);
@@ -70,10 +72,12 @@ var handleFormSubmit = function(event) {
   var menuItem = {
     category: $menuItemCategory.val().trim(),
     title: $menuItemTitle.val().trim(),
-    description: $menuItemDescription.val().trim()
+    description: $menuItemDescription.val().trim(),
+    price: $menuItemPrice.val().trim()
   };
 
-  if (!(menuItem.title && menuItem.description && menuItem.category )) {
+  // eslint-disable-next-line prettier/prettier
+  if (!(menuItem.category && menuItem.title && menuItem.description && menuItem.price)) {
     alert("You must enter an menuItem title and description!");
     return;
   }
@@ -85,6 +89,7 @@ var handleFormSubmit = function(event) {
   $menuItemCategory.val("");
   $menuItemTitle.val("");
   $menuItemDescription.val("");
+  $menuItemPrice.val("");
 };
 
 // handleDeleteBtnClick is called when an menuItem's delete button is clicked

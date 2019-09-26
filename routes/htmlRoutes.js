@@ -4,6 +4,8 @@ module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
     db.MenuItem.findAll({}).then(function(dbMenuItems) {
+      console.log("=================================================================htmlroutes");
+      console.log(res);
       res.render("index", {
         msg: "Welcome!",
         menuItems: dbMenuItems
