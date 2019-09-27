@@ -4,28 +4,24 @@
     "password": "b469modid",
     "database": "read4menudb",
     "host": "localhost",
-    "NODE_ENV": "local",
-    "dialect": {"dialect": "mysql"}
+    "dialect": "mysql"
   },
   "development": {
     "username": "root",
     "password": "b469modid",
     "database": "read4menudb",
     "host": "localhost",
-    "NODE_ENV": "development",
-    "dialect": {"dialect": "mysql"}
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "b469modid",
     "database": "read4menudb",
     "host": "localhost",
-    "NODE_ENV": "test",
-    "dialect": {"dialect": "mysql"}
+    "dialect": "mysql"
   },
   "production": {
     "use_env_variable": "JAWSDB_URL",
-    "NODE_ENV": "production",
-    "dialect": {"dialect": "mysql"}
+    "dialect": "mysql"
   }
 }
