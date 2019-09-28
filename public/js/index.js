@@ -1,15 +1,19 @@
 // Get references to page elements
 // var $menuItemTitle = $("#menuItem-text");
+var pSound = require("txttospc");
+
 var $menuItemCategory = $("#menuItem-category");
 var $menuItemTitle = $("#menuItem-title");
 var $menuItemDescription = $("#menuItem-description");
 var $menuItemPrice = $("#menuItem-price");
 var $submitBtn = $("#submit");
 var $menuItemList = $("#menuItem-list");
+var $playMenuBtn = $("playMenu");
+// var $backHomeBtn = $("backHomelnk");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
-  saveMenuItem: function(menuItem) {
+  saveMenuItem: function (menuItem) {
     return $.ajax({
       headers: {
         "Content-Type": "application/json"
@@ -19,13 +23,13 @@ var API = {
       data: JSON.stringify(menuItem)
     });
   },
-  getMenuItems: function() {
+  getMenuItems: function () {
     return $.ajax({
       url: "api/menuItems",
       type: "GET"
     });
   },
-  deleteMenuItem: function(id) {
+  deleteMenuItem: function (id) {
     return $.ajax({
       url: "api/menuItems/" + id,
       type: "DELETE"
@@ -34,9 +38,9 @@ var API = {
 };
 
 // refreshMenuItems gets new menuItems from the db and repopulates the list
-var refreshMenuItems = function() {
-  API.getMenuItems().then(function(data) {
-    var $menuItems = data.map(function(menuItem) {
+var refreshMenuItems = function () {
+  API.getMenuItems().then(function (data) {
+    var $menuItems = data.map(function (menuItem) {
       console.log("----------------------------------------------------------index refresh");
       console.log(menuItem);
       var $a = $("<a>")
@@ -66,7 +70,7 @@ var refreshMenuItems = function() {
 
 // handleFormSubmit is called whenever we submit a new menuItem
 // Save the new menuItem to the db and refresh the list
-var handleFormSubmit = function(event) {
+var handleFormSubmit = function (event) {
   event.preventDefault();
 
   var menuItem = {
@@ -82,7 +86,7 @@ var handleFormSubmit = function(event) {
     return;
   }
 
-  API.saveMenuItem(menuItem).then(function() {
+  API.saveMenuItem(menuItem).then(function () {
     refreshMenuItems();
   });
 
@@ -94,16 +98,38 @@ var handleFormSubmit = function(event) {
 
 // handleDeleteBtnClick is called when an menuItem's delete button is clicked
 // Remove the menuItem from the db and refresh the list
-var handleDeleteBtnClick = function() {
+var handleDeleteBtnClick = function () {
   var idToDelete = $(this)
     .parent()
     .attr("data-id");
 
-  API.deleteMenuItem(idToDelete).then(function() {
+  API.deleteMenuItem(idToDelete).then(function () {
     refreshMenuItems();
+  });
+};
+
+// var handleBackHomeBtnClick = function () {
+//   API.getMenuItems(menuItem).then(function () {
+//     refreshMenuItems();
+//   });
+// };
+
+var playMenuItems = function(event) {
+  event.preventDefault();
+
+  API.getMenuItems().then(function(data) {
+    data.map(function(menuItem) {
+      // eslint-disable-next-line prettier/prettier
+      console.log("----------------------------------------------------------play sound");
+      var a = menuItem.title;
+      console.log(a);
+      pSound.playText(a);
+    });
   });
 };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);
 $menuItemList.on("click", ".delete", handleDeleteBtnClick);
+$playMenuBtn.on("click", playMenuItems);
+// $backHomeBtn.on("click", handleBackHomeBtnClick);
