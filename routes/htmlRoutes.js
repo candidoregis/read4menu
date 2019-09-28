@@ -5,7 +5,7 @@ module.exports = function(app) {
   app.get("/", function(req, res) {
     db.MenuItem.findAll({}).then(function(dbMenuItems) {
       console.log("=================================================================htmlroutes");
-      console.log(res);
+      // console.log(res);
       res.render("index", {
         msg: "Welcome!",
         menuItems: dbMenuItems

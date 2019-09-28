@@ -3,7 +3,7 @@ const player = require('play-sound')(opts={});
 const fs = require('fs');
 const util = require('util');
 
-async function playText(text) {
+module.exports = async function playText(text) {
   
   const client = new textToSpeech.TextToSpeechClient();
 

@@ -25,6 +25,7 @@ const recognizeStream = client
 function parseResult(err, resp, body) {
     if (err) console.error(err)
     console.log(body)
+    console.log("+");
 }
 
 const recording = recorder.record({

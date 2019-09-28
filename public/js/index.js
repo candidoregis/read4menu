@@ -1,6 +1,6 @@
 // Get references to page elements
 // var $menuItemTitle = $("#menuItem-text");
-var pSound = require("txttospc");
+// var player = require("public/js/txttospc.js");
 
 var $menuItemCategory = $("#menuItem-category");
 var $menuItemTitle = $("#menuItem-title");
@@ -8,8 +8,7 @@ var $menuItemDescription = $("#menuItem-description");
 var $menuItemPrice = $("#menuItem-price");
 var $submitBtn = $("#submit");
 var $menuItemList = $("#menuItem-list");
-var $playMenuBtn = $("playMenu");
-// var $backHomeBtn = $("backHomelnk");
+var $playMenuBtn = $("#playMenu");
 
 // The API object contains methods for each kind of request we'll make
 var API = {
@@ -42,7 +41,7 @@ var refreshMenuItems = function () {
   API.getMenuItems().then(function (data) {
     var $menuItems = data.map(function (menuItem) {
       console.log("----------------------------------------------------------index refresh");
-      console.log(menuItem);
+      // console.log(menuItem);
       var $a = $("<a>")
         .text(menuItem.title)
         .attr("href", "/menuItem/" + menuItem.id);
@@ -108,22 +107,14 @@ var handleDeleteBtnClick = function () {
   });
 };
 
-// var handleBackHomeBtnClick = function () {
-//   API.getMenuItems(menuItem).then(function () {
-//     refreshMenuItems();
-//   });
-// };
-
-var playMenuItems = function(event) {
-  event.preventDefault();
-
+var playMenuItems = function() {
   API.getMenuItems().then(function(data) {
     data.map(function(menuItem) {
       // eslint-disable-next-line prettier/prettier
       console.log("----------------------------------------------------------play sound");
       var a = menuItem.title;
       console.log(a);
-      pSound.playText(a);
+      player.playText(a);
     });
   });
 };
@@ -132,4 +123,3 @@ var playMenuItems = function(event) {
 $submitBtn.on("click", handleFormSubmit);
 $menuItemList.on("click", ".delete", handleDeleteBtnClick);
 $playMenuBtn.on("click", playMenuItems);
-// $backHomeBtn.on("click", handleBackHomeBtnClick);
