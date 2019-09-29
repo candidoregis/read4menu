@@ -19,6 +19,14 @@ if (config.use_env_variable) {
   );
 }
 
+sequelize.authenticate().complete(function (err) {
+  if (err) {
+     console.log('There is connection in ERROR');
+  } else {
+     console.log('Connection has been established successfully');
+  }
+ });
+
 fs.readdirSync(__dirname)
   .filter(function(file) {
     return (
