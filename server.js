@@ -16,10 +16,12 @@ app.use(express.static("public"));
 app.engine(
   "handlebars",
   exphbs({
-    defaultLayout: "main"
+    defaultLayout: "main",
+    extname: ".handlebars"
   })
 );
-app.set("view engine", "handlebars");
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", ".handlebars");
 
 // Routes
 require("./routes/apiRoutes")(app);
