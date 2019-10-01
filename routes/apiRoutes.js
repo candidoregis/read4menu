@@ -23,4 +23,10 @@ module.exports = function(app) {
       res.json(dbMenuItem);
     });
   });
+
+  app.get("/api/menuItems/playmenu", function(req, res) {
+    db.MenuItem.findAll({}).then(function(dbMenuItems) {
+      res.json(dbMenuItems);
+    });
+  });
 };

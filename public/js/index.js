@@ -1,6 +1,4 @@
 // Get references to page elements
-// var $menuItemTitle = $("#menuItem-text");
-// var player = require("public/js/txttospc.js");
 
 var $menuItemCategory = $("#menuItem-category");
 var $menuItemTitle = $("#menuItem-title");
@@ -25,6 +23,12 @@ var API = {
   getMenuItems: function () {
     return $.ajax({
       url: "api/menuItems",
+      type: "GET"
+    });
+  },
+  playMenuItems: function () {
+    return $.ajax({
+      url: "api/menuItems/playmenu",
       type: "GET"
     });
   },
@@ -107,17 +111,17 @@ var handleDeleteBtnClick = function () {
   });
 };
 
-var playMenuItems = function() {
-  API.getMenuItems().then(function(data) {
-    data.map(function(menuItem) {
-      // eslint-disable-next-line prettier/prettier
-      console.log("----------------------------------------------------------play sound");
-      var a = menuItem.title;
-      console.log(a);
-      player.playText(a);
-    });
-  });
-};
+// var playMenuItems = function() {
+//   API.playMenuItems().then(function(data) {
+//     data.map(function(menuItem) {
+//       // eslint-disable-next-line prettier/prettier
+//       console.log("----------------------------------------------------------play sound");
+//       var a = menuItem.title;
+//       console.log(a);
+//       player.playText(a);
+//     });
+//   });
+// };
 
 // Add event listeners to the submit and delete buttons
 $submitBtn.on("click", handleFormSubmit);

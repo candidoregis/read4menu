@@ -1,4 +1,5 @@
 require("dotenv").config();
+var keys = require("./keys.js");
 var path = require("path");
 var express = require("express");
 var exphbs = require("express-handlebars");
@@ -18,11 +19,11 @@ app.engine(
   "handlebars",
   exphbs({
     defaultLayout: "main",
-    extname: ".handlebars"
+    extname: "handlebars"
   })
 );
 app.set("views", path.join(__dirname, "views"));
-app.set("view engine", ".handlebars");
+app.set("view engine", "handlebars");
 
 // Routes
 require("./routes/apiRoutes")(app);
